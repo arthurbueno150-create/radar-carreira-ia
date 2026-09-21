@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore vagas reais, descubra competências e simule seu próximo passo com ciência de dados e machine learning em Python.">
+  <meta name="theme-color" content="#142822">
+  <title>Radar — Carreira IA</title>
+  <link rel="icon" href="/static/radar.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Ir para o conteúdo</a>
+<aside class="sidebar">
+  <a class="brand" href="/" aria-label="Radar Carreira IA, início"><img src="/static/radar.svg" alt="" width="40" height="40"><span>radar<span class="brand-sub">CARREIRA IA</span></span></a>
+  <div class="workspace-label">SEU OBSERVATÓRIO</div>
+  <nav aria-label="Navegação principal">
+    <button class="nav-item active" data-view="overview" aria-current="page"><span class="nav-icon">◫</span> Visão geral</button>
+    <button class="nav-item" data-view="radar"><span class="nav-icon">◎</span> Meu radar <span class="nav-new">IA</span></button>
+    <button class="nav-item" data-view="lab"><span class="nav-icon">⌘</span> Laboratório ML</button>
+    <button class="nav-item" data-view="sources"><span class="nav-icon">▤</span> Sobre os dados</button>
+  </nav>
+  <div class="sidebar-note"><span class="orbit-mini" aria-hidden="true"></span><strong>O próximo passo começa<br>com uma boa pergunta.</strong><p>O que vale a pena<br>aprender agora?</p><button class="side-cta" data-view="radar">Explorar meu perfil <span>↗</span></button></div>
+  <div class="sidebar-foot"><span class="python-mark">Py</span><div>Construído em Python<small>Ciência de dados aplicada</small></div></div>
+</aside>
+<div class="page-shell">
+  <header class="topbar"><div>WORKSPACE <span>/</span> <strong id="breadcrumb">Visão geral</strong></div><div class="topbar-right"><span class="source-badge">Base pública · Jobicy</span><span class="avatar" aria-label="Seu espaço">AB</span></div></header>
+  <main id="main" tabindex="-1">
+    <div id="error-banner" role="alert" hidden></div>
+    <div class="page-heading"><div><p class="eyebrow">DADOS QUE ABREM CAMINHOS</p><h1 id="page-title">O mercado, em perspectiva.</h1><p class="intro" id="page-intro">Explore competências, conecte oportunidades e planeje seu próximo passo.</p></div><button class="primary heading-action" data-view="radar">Analisar meu perfil <span>↗</span></button></div>
+    <section class="filterbar" aria-label="Filtrar a amostra" id="filterbar">
+      <div class="search-wrap"><label for="search" class="sr-only">Buscar cargo, empresa ou competência</label><span aria-hidden="true">⌕</span><input id="search" placeholder="Cargo, empresa ou competência" type="search"></div>
+      <label class="sr-only" for="category">Área profissional</label><select id="category"><option value="">Todas as áreas</option></select>
+      <label class="sr-only" for="location">Localização permitida</label><select id="location"><option value="">Todas as localidades</option></select>
+      <button class="text-button" id="clear-filters">Limpar</button>
+    </section>
+    <section id="view-overview" class="view">
+      <div class="snapshot-line"><span class="status-dot"></span><span id="snapshot-status">Carregando a amostra…</span><span class="snapshot-label">RETRATO DA AMOSTRA</span></div>
+      <div class="stats-grid" id="stats" aria-live="polite"></div>
+      <div class="overview-grid">
+        <section class="card skill-card"><div class="card-heading"><div><p class="eyebrow">O QUE AS VAGAS MENCIONAM</p><h2>Competências em destaque</h2></div><span class="small-label">TOP 10</span></div><p class="card-sub">Frequência de menções, sem distinguir requisitos e diferenciais.</p><div id="skill-chart" class="skill-chart"></div><p class="chart-foot">Clique em uma competência para filtrar a amostra.</p></section>
+        <section class="card map-card"><div class="card-heading"><div><p class="eyebrow">MACHINE LEARNING EM AÇÃO</p><h2>Mapa de oportunidades</h2></div><span class="tag">K-means</span></div><p class="card-sub">Cada ponto é uma vaga. A cor indica competências semelhantes.</p><div id="cluster-map" class="cluster-map"></div><div id="cluster-legend" class="cluster-legend"></div><p class="chart-foot">Projeção SVD em 2D. Distâncias são aproximadas.</p></section>
+      </div>
+      <div class="insight-strip"><div class="insight-symbol">↗</div><div><strong id="insight-title">Seu repertório pode encontrar novos caminhos.</strong><p id="insight-text">Use a amostra para descobrir o que aprender a seguir.</p></div><button data-view="radar" class="dark-button">Simular meu próximo passo <span>→</span></button></div>
+      <section class="card distribution-card"><div class="card-heading"><div><p class="eyebrow">CONTEXTO IMPORTA</p><h2>Quem aparece nesta amostra</h2></div><span class="small-label">VAGAS REMOTAS INTERNACIONAIS</span></div><div class="distribution-grid"><div><h3>Áreas profissionais</h3><div id="category-chart"></div></div><div><h3>Localidades mais mencionadas</h3><div id="location-chart"></div></div><div class="sample-note"><span>↳</span><h3>Remoto tem endereço.</h3><p>Uma vaga remota pode restringir o país de contratação. Confira a localidade e o anúncio original antes de se candidatar.</p></div></div></section>
+    </section>
+    <section id="view-radar" class="view" hidden>
+      <div class="radar-layout"><div class="profile-column"><section class="card profile-card"><p class="eyebrow">01 / SEU PONTO DE PARTIDA</p><h2>O que você já sabe?</h2><p class="card-sub">Comece com o exemplo ou descreva suas competências. O perfil é processado no servidor do aplicativo, sem APIs de IA externas.</p><div class="presets" aria-label="Perfis de exemplo"><button data-preset="data" class="chip">Dados</button><button data-preset="ml" class="chip">Machine learning</button><button data-preset="dev" class="chip">Desenvolvimento</button></div><label for="profile">Competências e experiência</label><textarea id="profile" rows="7" maxlength="6000">Tenho conhecimentos de Python, SQL e Pandas. Faço análise de dados e visualização de dados com Power BI. Uso essas competências em projetos de estudo.</textarea><p class="input-note">Exemplo editável · português e termos técnicos em inglês</p><button id="analyze" class="primary wide">Encontrar conexões <span>↗</span></button><div id="detected" class="detected" aria-live="polite"></div></section>
+      <section class="card simulation-card"><p class="eyebrow">02 / EXPERIMENTE O FUTURO</p><h2>E se eu aprender…</h2><p class="card-sub">Adicione competências e compare a cobertura na mesma amostra de vagas.</p><label for="new-skill">Competência para simular</label><div class="add-skill"><select id="new-skill"><option value="">Selecione uma competência</option></select><button id="add-skill" class="square-button" aria-label="Adicionar competência à simulação">+</button></div><div id="extra-skills" class="chips"></div><div id="simulation" aria-live="polite"><p class="input-note">Analise seu perfil para iniciar uma simulação.</p></div></section></div>
+      <div class="results-column"><div class="results-heading"><div><p class="eyebrow">CONEXÕES EXPLICÁVEIS</p><h2>Vagas que conversam com você</h2></div><button id="export-plan" class="secondary" disabled>Exportar plano ↓</button></div><p id="ranking-note" class="ranking-note">Afinidade = 65% cobertura de competências + 35% similaridade textual. O índice não representa chance de contratação.</p><div id="recommendation-status" role="status" aria-live="polite"></div><div id="job-list"><div class="empty-state"><span>◎</span><h3>Seu radar começa pelo seu repertório.</h3><p>Edite o perfil ao lado e clique em “Encontrar conexões”.</p></div></div></div></div>
+      <section id="learning-section" class="card learning-section" hidden><div class="card-heading"><div><p class="eyebrow">03 / TRANSFORME DADOS EM AÇÃO</p><h2>Seu plano de exploração</h2></div><span class="tag">Prioridade por ganho de cobertura</span></div><p class="card-sub">Sugestões de prática. O ganho é calculado na amostra filtrada; não mede proficiência ou empregabilidade.</p><div id="learning-plan" class="learning-grid"></div></section>
+    </section>
+    <section id="view-lab" class="view" hidden><div class="lab-intro"><span class="lab-badge">ML</span><div><h2>Modelos abertos. Resultados verificáveis.</h2><p>Acompanhe o que foi treinado, como foi avaliado e o que cada número significa.</p></div></div><div id="lab-content"></div></section>
+    <section id="view-sources" class="view" hidden><div id="sources-content"></div></section>
+    <footer><span>radar <strong>/</strong> Carreira IA</span><span>Python · scikit-learn · dados públicos · sem API de IA paga</span><a href="https://jobicy.com/jobs-rss-feed" target="_blank" rel="noopener noreferrer">Fonte: Jobicy ↗</a></footer>
+  </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,144 @@
+{
+  "generated_at": "2026-09-20T01:30:33.225323+00:00",
+  "data_sha256": "f81fbfb40d4e972e4fcc26eaf276039f5c760dcfcbace3a0e4ca9e1904555bea",
+  "random_state": 42,
+  "rows": 316,
+  "text_vocabulary": 14000,
+  "versions": {
+    "scikit-learn": "1.9.1",
+    "numpy": "2.5.3",
+    "pandas": "3.0.6"
+  },
+  "clustering": {
+    "silhouette": 0.1585,
+    "metric": "cosine",
+    "trials": [
+      {
+        "k": 2,
+        "silhouette": 0.1287
+      },
+      {
+        "k": 3,
+        "silhouette": 0.1236
+      },
+      {
+        "k": 4,
+        "silhouette": 0.1412
+      },
+      {
+        "k": 5,
+        "silhouette": 0.1537
+      },
+      {
+        "k": 6,
+        "silhouette": 0.1585
+      }
+    ],
+    "clusters": [
+      {
+        "id": -1,
+        "count": 30,
+        "name": "Sem competências extraídas"
+      },
+      {
+        "id": 0,
+        "count": 57,
+        "name": "React · TypeScript · APIs"
+      },
+      {
+        "id": 1,
+        "count": 71,
+        "name": "Machine Learning · Python · SQL"
+      },
+      {
+        "id": 2,
+        "count": 54,
+        "name": "AWS · Kubernetes · APIs"
+      },
+      {
+        "id": 3,
+        "count": 35,
+        "name": "Análise de dados · SQL · Python"
+      },
+      {
+        "id": 4,
+        "count": 34,
+        "name": "SQL · Python · dbt"
+      },
+      {
+        "id": 5,
+        "count": 35,
+        "name": "APIs · LLMs · Python"
+      }
+    ],
+    "projection_variance": 0.127,
+    "note": "Silhouette é diagnóstico interno usado para escolher k; não é acurácia em teste."
+  },
+  "supervised": {
+    "task": "Prever a categoria atribuída pelo Jobicy a partir do título e da descrição.",
+    "split": "GroupShuffleSplit: 25% das empresas no teste, random_state=42.",
+    "train_rows": 223,
+    "test_rows": 93,
+    "train_companies": 118,
+    "test_companies": 40,
+    "company_overlap": 0,
+    "train_distribution": {
+      "Engenharia de software": 131,
+      "Dados e analytics": 92
+    },
+    "test_distribution": {
+      "Engenharia de software": 68,
+      "Dados e analytics": 25
+    },
+    "model": {
+      "accuracy": 0.9032,
+      "macro_f1": 0.8813
+    },
+    "baseline": {
+      "accuracy": 0.7312,
+      "macro_f1": 0.4224
+    },
+    "classes": [
+      "Dados e analytics",
+      "Engenharia de software"
+    ],
+    "confusion_matrix": [
+      [
+        22,
+        3
+      ],
+      [
+        6,
+        62
+      ]
+    ],
+    "classification_report": {
+      "Dados e analytics": {
+        "precision": 0.7857142857142857,
+        "recall": 0.88,
+        "f1-score": 0.8301886792452831,
+        "support": 25.0
+      },
+      "Engenharia de software": {
+        "precision": 0.9538461538461539,
+        "recall": 0.9117647058823529,
+        "f1-score": 0.9323308270676691,
+        "support": 68.0
+      },
+      "accuracy": 0.9032258064516129,
+      "macro avg": {
+        "precision": 0.8697802197802198,
+        "recall": 0.8958823529411765,
+        "f1-score": 0.8812597531564761,
+        "support": 93.0
+      },
+      "weighted avg": {
+        "precision": 0.9086494151010279,
+        "recall": 0.9032258064516129,
+        "f1-score": 0.9048732604487482,
+        "support": 93.0
+      }
+    },
+    "limitations": "Experimento auxiliar em um único split. As métricas medem reprodução das categorias da fonte, não qualidade das recomendações ou probabilidade de contratação. O vocabulário TF-IDF é ajustado somente no treino deste experimento."
+  }
+}
