@@ -1,122 +1,170 @@
 # Radar de Carreira IA
 
-Um projeto de **ciência de dados e machine learning em Python** que transforma vagas públicas em um mapa de competências e em um plano de aprendizado explicável.
+**Ciência de dados para explorar oportunidades e planejar o próximo passo no aprendizado.**
 
-O diferencial é o **simulador “E se eu aprender…”**: informe suas competências, adicione uma habilidade e veja como a cobertura muda sobre a mesma amostra de vagas. Todos os cálculos, a preparação dos dados e os modelos são executados em Python. HTML, CSS e JavaScript compõem a interface do navegador.
+O Radar de Carreira IA é uma aplicação em **Python** que analisa vagas reais, identifica competências e mostra conexões entre o que você já sabe e o que aparece nos anúncios. A proposta é transformar descrições de vagas em informações que ajudem a organizar os estudos, com resultados que podem ser entendidos e conferidos.
 
-## Acessar online
+**[Acesse o projeto no Render e experimente](https://radar-carreira-ia.onrender.com/)**
 
-**[Abrir o Radar de Carreira IA](https://radar-carreira-ia.onrender.com/)**
+Não precisa instalar nada nem criar uma conta. Abra o aplicativo, escolha um perfil de exemplo e explore. Como a hospedagem usa uma instância gratuita, o primeiro acesso após um período de inatividade pode levar cerca de um minuto ou mais.
 
-O aplicativo está hospedado no Render, com o backend e os modelos em Python. Não é necessário instalar nada para testar. A instância gratuita pode levar cerca de um minuto ou mais para iniciar após um período sem acessos.
+## A ideia por trás do projeto
 
-## Executar no seu computador
+Com tantas ferramentas, linguagens e assuntos para estudar, escolher por onde começar nem sempre é simples. O Radar parte de uma pergunta prática: **quais competências se conectam ao meu repertório e às vagas desta amostra?**
 
-No Windows, extraia o ZIP e dê dois cliques em **INICIAR.bat**. O inicializador cria um ambiente virtual, instala as dependências e abre o aplicativo no navegador. A primeira execução requer internet para instalar bibliotecas. Depois, a análise funciona com os dados locais, sem chave de API nem serviço de IA pago.
+O diferencial está no simulador **“E se eu aprender…”**. Você adiciona uma competência, como AWS ou Docker, e compara a cobertura antes e depois, mantendo o mesmo conjunto de vagas. É uma forma de explorar possibilidades com dados e entender o motivo de cada resultado.
 
-Requisito: **Python 3.12 ou superior**. Validado com Python 3.12.14. O inicializador também reconhece o Python que acompanha o Codex neste computador. Mantenha a janela do servidor aberta enquanto usa o aplicativo; feche-a ou pressione Ctrl+C para encerrar.
+O projeto foi desenvolvido como uma aplicação de portfólio, reunindo coleta, tratamento de dados, análise exploratória, machine learning, avaliação e publicação de uma aplicação web.
 
-Em qualquer sistema:
+## O que você pode fazer
+
+| Recurso | Como funciona |
+|---|---|
+| **Visão geral** | Explore a amostra por área, localidade, cargo, empresa ou competência e veja os indicadores atualizados. |
+| **Mapa de oportunidades** | Visualize grupos de vagas com competências semelhantes, organizados com K-means. |
+| **Meu radar** | Informe suas competências e receba uma lista de vagas ordenada por afinidade, com o que combina e o que falta. |
+| **Simulador de aprendizado** | Adicione competências e observe como a cobertura das vagas muda. |
+| **Plano de exploração** | Consulte sugestões de prática ordenadas pelo ganho de cobertura e exporte o resultado em JSON. |
+| **Laboratório ML** | Confira os métodos, as métricas, o baseline e os limites dos modelos. |
+| **Sobre os dados** | Veja a origem da base, a data de coleta e os cuidados necessários ao interpretar os resultados. |
+
+## Um jeito rápido de testar
+
+1. Acesse a [demonstração online](https://radar-carreira-ia.onrender.com/).
+2. Entre em **Meu radar** e use o perfil de exemplo **Dados**, ou escreva suas próprias competências.
+3. Clique em **Encontrar conexões** para explorar as recomendações.
+4. Em **E se eu aprender…**, adicione **AWS** e compare os resultados.
+5. Abra as explicações das vagas e, se quiser, clique em **Exportar plano**.
+
+Na base incluída, o perfil de exemplo de dados passa de **18,0% para 21,4% de cobertura média** ao adicionar AWS, considerando as mesmas 286 vagas com competências reconhecidas. Esse número descreve a cobertura da amostra; não representa chance de contratação.
+
+## Os dados utilizados
+
+A versão inicial reúne **316 anúncios únicos de 158 empresas**, obtidos pela API pública do **Jobicy**, nas categorias Data Science & Analytics e Software Engineering. A coleta ocorreu em **19/09/2026, no horário de Brasília** — 20/09/2026 em UTC. Dos 317 registros recebidos, uma duplicata foi removida.
+
+O vocabulário do projeto reconhece **53 competências**, com termos e variações em português e inglês. Os anúncios são reais; os perfis de demonstração são exemplos editáveis. A base é uma fotografia daquela coleta, com atualização manual.
+
+Trata-se de uma amostra de vagas remotas internacionais, majoritariamente em inglês. Ela não representa todo o mercado de trabalho nem especificamente o mercado brasileiro. Os anúncios podem expirar, e uma vaga remota pode restringir o país de contratação. Cada recomendação mantém o link para a publicação original.
+
+Consulte a [documentação da fonte e das condições de uso](DATA_SOURCE.md).
+
+## Como a ciência de dados entra aqui
+
+O processamento e os modelos são executados em Python. Flask e Waitress servem a aplicação; pandas e NumPy apoiam a análise; scikit-learn implementa os modelos. A interface utiliza HTML, CSS e JavaScript.
+
+| Etapa | Técnica utilizada |
+|---|---|
+| Coleta e preparação | Consulta à API, limpeza de HTML, deduplicação e validação dos links de origem. |
+| Extração de competências | Dicionário auditável de termos e aliases, com regras de identificação. |
+| Análise exploratória | Contagens, proporções e filtros com pandas. |
+| Recomendação | TF-IDF, similaridade do cosseno e cobertura de competências ponderada por IDF. |
+| Agrupamento de vagas | K-means, comparando de 2 a 6 grupos pelo silhouette cosseno. |
+| Visualização dos grupos | TruncatedSVD para projetar as vagas em duas dimensões. |
+| Experimento supervisionado | TF-IDF + regressão logística para distinguir as categorias da fonte. |
+
+A afinidade combina **65% de cobertura ponderada de competências** e **35% de similaridade textual**. Esses pesos são uma escolha do protótipo, sem calibração com resultados reais de contratação. A simulação mantém a similaridade textual fixa e altera apenas as competências consideradas presentes.
+
+O plano sugere as competências ausentes com maior ganho médio de cobertura no recorte selecionado. Ele não estima tempo de estudo, dificuldade, proficiência ou retorno financeiro.
+
+### Avaliação dos modelos
+
+No experimento de classificação, as empresas foram separadas entre treino e teste: **223 vagas no treino e 93 no teste**, sem empresas compartilhadas. O vocabulário TF-IDF foi ajustado somente no treino.
+
+| Métrica | Regressão logística | Baseline da classe mais frequente |
+|---|---:|---:|
+| Macro-F1 | 0,881 | 0,422 |
+| Acurácia | 90,3% | 73,1% |
+
+Esses resultados medem a capacidade de reproduzir as categorias atribuídas pelo Jobicy em um único recorte de teste. **Eles não avaliam a qualidade do ranking de vagas.**
+
+No agrupamento, foram selecionados 6 grupos, com silhouette de **0,1585**, indicando sobreposição entre os grupos. A projeção em duas dimensões preserva **12,7% da variância**, por isso as distâncias no mapa são aproximadas. O silhouette é um diagnóstico interno da amostra usada para escolher o número de grupos.
+
+Para explorar os detalhes, consulte o [relatório técnico](RELATORIO.md), o [notebook de análise e modelagem](notebooks/01_exploracao_e_modelagem.ipynb) e o [relatório de métricas em JSON](reports/model_report.json).
+
+## Executar localmente
+
+O ambiente foi validado com **Python 3.12.14**. A primeira instalação requer internet; depois, o aplicativo utiliza a base incluída no repositório, sem chave de API ou serviço de IA pago.
 
 ```bash
+git clone https://github.com/arthurbueno150-create/radar-carreira-ia.git
+cd radar-carreira-ia
 python iniciar.py
 ```
 
-Para desenvolvimento, sem o inicializador:
+O inicializador cria um ambiente virtual, instala as dependências e abre o aplicativo no navegador. No Windows, também é possível usar **INICIAR.bat**. Mantenha a janela do servidor aberta enquanto utiliza a aplicação.
+
+Para preparar um ambiente de desenvolvimento manualmente:
 
 ```bash
 python -m venv .venv
-# Windows:
-.venv\Scripts\python -m pip install -r requirements-dev.txt
-.venv\Scripts\python app.py --open
-# Linux/macOS:
-# .venv/bin/python -m pip install -r requirements-dev.txt
-# .venv/bin/python app.py --open
 ```
 
-Na execução local, o servidor escuta apenas neste computador, na porta 8765. Se ela estiver ocupada, execute `python app.py --port 8766 --open`.
+No Windows:
 
-## Publicação no Render
+```powershell
+.venv\Scripts\python -m pip install -r requirements-dev.txt
+.venv\Scripts\python app.py --open
+```
 
-O arquivo `render.yaml` define um Web Service gratuito com Python 3.12.14, instalação por `pip install -r requirements.txt`, inicialização por `python app.py` e verificação de saúde em `/health`. O servidor usa a porta `PORT` fornecida pelo Render e `RADAR_HOST=0.0.0.0` para receber os acessos públicos. Alterações enviadas à branch `main` iniciam uma nova publicação automaticamente.
+No Linux ou macOS:
 
-A amostra de vagas acompanha o repositório. Os modelos exploratórios são preparados na inicialização. O perfil digitado é enviado ao backend do aplicativo para o cálculo, sem armazenamento em arquivos ou banco de dados e sem envio a APIs de IA externas. A atualização da base continua manual.
+```bash
+.venv/bin/python -m pip install -r requirements-dev.txt
+.venv/bin/python app.py --open
+```
 
-## O que experimentar
+A execução local usa a porta 8765. Caso esteja ocupada, adicione `--port 8766` ao comando de inicialização.
 
-1. **Visão geral:** filtre área, localidade e cargo; confira as competências mais mencionadas. Clique nas barras para filtrar e na legenda do mapa para destacar um grupo.
-2. **Meu radar:** edite o perfil de exemplo e clique em Encontrar conexões. As vagas mostram o que combina e o que ainda falta.
-3. **Simulação:** adicione AWS, Docker ou outra competência. Compare cobertura atual e simulada sem mudar a população de referência.
-4. **Plano de exploração:** veja sugestões de prática ordenadas pelo ganho de cobertura. Exporte o resultado em JSON.
-5. **Laboratório ML:** inspecione clustering, baseline, classificação, matriz de confusão e separação de empresas entre treino e teste.
-6. **Sobre os dados:** confira a coleta, a atribuição, os limites da amostra e o hash de integridade.
+## Reproduzir a análise e os testes
 
-## Dados reais e escopo
-
-A base entregue contém **316 anúncios únicos**, provenientes de 317 registros da API pública do Jobicy; uma duplicata foi removida. Coleta em 19/09/2026 no horário de Brasília (20/09/2026 em UTC). São duas categorias: Data Science & Analytics e Software Engineering, com até 200 anúncios por consulta. Os anúncios, as empresas e as descrições são reais; não há vagas sintéticas misturadas à base. Perfis de demonstração são exemplos editáveis.
-
-Essa é uma amostra de conveniência de vagas remotas internacionais, majoritariamente em inglês. **Não representa o mercado brasileiro ou todo o mercado de trabalho.** Frequência de menções não significa crescimento temporal. Remoto não significa elegibilidade em qualquer país. Anúncios podem expirar após a coleta.
-
-Origem, condições de uso e atribuição: [DATA_SOURCE.md](DATA_SOURCE.md).
-
-## Ciência de dados e ML
-
-| Etapa | Implementação | Como interpretar |
-|---|---|---|
-| Coleta e preparação | urllib, HTMLParser, deduplicação por ID e conteúdo, validação de URL | Remove HTML ativo e preserva a origem |
-| Extração de competências | Dicionário auditável com aliases PT/EN e limites de palavra | Regras, não um modelo de linguagem |
-| Análise exploratória | pandas, contagens e proporções | Descreve a amostra filtrada |
-| Recomendação | TF-IDF, cosseno e cobertura com pesos IDF | Afinidade explicável, não probabilidade |
-| Agrupamento | K-means, k de 2 a 6, silhouette cosseno | Grupos exploratórios de competências |
-| Mapa de vagas | TruncatedSVD em duas dimensões | Projeção aproximada com perda de informação |
-| Experimento supervisionado | TF-IDF + regressão logística | Prediz as categorias atribuídas pela fonte |
-| Avaliação | Split por empresa, baseline, macro-F1, acurácia e matriz de confusão | Experimento separado do ranking |
-
-**Afinidade = 100 × (0,65 × cobertura ponderada + 0,35 × similaridade textual).**
-
-Na cobertura, cada competência tem peso `log((1 + N) / (1 + frequência)) + 1`. O numerador soma os pesos das competências da vaga que aparecem no perfil; o denominador soma os pesos de todas as competências extraídas daquela vaga. Uma vaga sem competências reconhecidas recebe cobertura zero.
-
-A simulação mantém a similaridade textual fixa e altera apenas as competências consideradas presentes. A média usa o mesmo conjunto de vagas filtradas com competências reconhecidas. Assim, o ganho exibido tem uma definição verificável. O plano ordena cada competência ausente pelo ganho médio marginal. Não considera horas de estudo, dificuldade, domínio real ou retorno financeiro.
-
-Os pesos de afinidade são uma escolha do protótipo, sem calibração em resultados de contratação. O extrator não compreende negação nem distingue requisitos de diferenciais; informe apenas competências que você realmente possui. Não há avaliação humana de relevância do ranking.
-
-## Reproduzir a avaliação
+Com as dependências de desenvolvimento instaladas, execute no ambiente virtual:
 
 ```bash
 python train.py
 python -m pytest -q
 ```
 
-O script gera `reports/model_report.json` com versões das bibliotecas, hash dos dados, resultados e semente 42. O classificador usa `GroupShuffleSplit`: 25% das empresas no teste. O TF-IDF desse experimento é ajustado somente no treino, e o teste não é usado para escolher hiperparâmetros. Os modelos exploratórios do dashboard usam toda a amostra; são independentes do experimento supervisionado.
+A avaliação usa a semente 42 e registra versões das bibliotecas e o hash da base em `reports/model_report.json`. Os testes cobrem preparação dos dados, filtros, recomendações, simulação, exportação, validação das entradas e consistência da avaliação.
 
-As métricas do classificador **não validam o ranking de vagas**. O silhouette é calculado na mesma amostra usada para escolher k; é um diagnóstico interno, não uma estimativa de desempenho futuro. Veja também [RELATORIO.md](RELATORIO.md) e o notebook `notebooks/01_exploracao_e_modelagem.ipynb`.
-
-## Atualizar os dados
+Para renovar a amostra:
 
 ```bash
 python collect.py
 python train.py
 ```
 
-Reinicie o aplicativo após a atualização. A coleta é manual e exige um intervalo de seis horas entre atualizações; não há agendamento. Falhas de rede, respostas inválidas ou vazias preservam o último arquivo válido. A interface não apresenta métricas de uma versão antiga da base.
+A coleta é manual, respeita um intervalo mínimo de seis horas e preserva a última base válida em caso de falha. Reinicie a aplicação após atualizar os dados. Para atualizar a versão online, envie a base e o relatório gerados ao repositório. Métricas de uma base anterior deixam de aparecer até que a avaliação seja refeita.
 
-## Organização
+## Publicação no Render
+
+O arquivo [render.yaml](render.yaml) descreve o serviço web: Python 3.12.14, instalação por `pip install -r requirements.txt`, inicialização por `python app.py` e verificação de saúde em `/health`.
+
+O servidor utiliza a porta fornecida pelo Render e `RADAR_HOST=0.0.0.0` para receber acessos públicos. Os modelos exploratórios são preparados na inicialização. A versão publicada está conectada à branch `main`, com implantação automática após novos commits.
+
+## Estrutura do repositório
 
 ```text
 app.py                  Servidor Flask e API
 iniciar.py / INICIAR.bat Inicialização local
-collect.py              Atualização manual da amostra
+collect.py              Atualização manual dos dados
 train.py                Avaliação reproduzível
-radar/data.py           Coleta, limpeza e rastreabilidade
-radar/skills.py         Vocabulário e sugestões de prática
-radar/model.py          Recomendação, K-means e SVD
-radar/analytics.py      Filtros e estatísticas
-radar/evaluation.py     Experimento supervisionado
-data/jobs.json          Base real tratada e metadados
-reports/               Métricas e versões
-notebooks/             Análise didática reproduzível
-templates/ + static/   Interface sem dependências externas
-tests/                 Testes do pipeline e da API
+radar/                  Preparação, análise, competências e modelos
+data/                   Amostra de vagas e metadados de origem
+reports/                Métricas e versões das bibliotecas
+notebooks/              Análise exploratória e modelagem
+templates/ + static/    Interface do aplicativo
+tests/                  Testes do pipeline e da API
+render.yaml             Configuração de publicação
 ```
 
-O perfil não é gravado em arquivos ou banco de dados, nem enviado a fornecedores de IA. Exportações contêm competências reconhecidas e resultados, sem o texto completo digitado. O aplicativo vincula anúncios à fonte original e trata descrições como texto. A licença MIT cobre apenas o código original, não os anúncios.
+## Privacidade e limites
+
+O perfil é enviado ao servidor do aplicativo apenas para calcular os resultados. O código não grava esse texto em arquivos, banco de dados ou logs e não utiliza APIs de IA externas. A exportação contém competências reconhecidas, resultados e origem dos dados, sem incluir o texto completo digitado. Uma lista de competências é suficiente para testar.
+
+O reconhecimento de competências usa regras: não compreende negações nem distingue requisitos de diferenciais. Por isso, informe apenas o que você sabe. A frequência de uma competência nesta coleta também não demonstra crescimento da demanda ao longo do tempo. Não há avaliação humana de relevância do ranking.
+
+## Licença e colaboração
+
+O código original está disponível sob a [licença MIT](LICENSE). Os anúncios pertencem aos seus respectivos titulares e seguem as condições da fonte; a licença do código não transfere direitos sobre esses conteúdos.
+
+Encontrou algo que pode melhorar? Issues e pull requests são bem-vindos. Sugestões para o vocabulário, a experiência de uso e a avaliação dos modelos são ótimos pontos de partida.
