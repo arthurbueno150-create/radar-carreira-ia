@@ -4,7 +4,13 @@ Um projeto de **ciência de dados e machine learning em Python** que transforma 
 
 O diferencial é o **simulador “E se eu aprender…”**: informe suas competências, adicione uma habilidade e veja como a cobertura muda sobre a mesma amostra de vagas. Todos os cálculos, a preparação dos dados e os modelos são executados em Python. HTML, CSS e JavaScript compõem a interface do navegador.
 
-## Abrir o projeto
+## Acessar online
+
+**[Abrir o Radar de Carreira IA](https://radar-carreira-ia.onrender.com/)**
+
+O aplicativo está hospedado no Render, com o backend e os modelos em Python. Não é necessário instalar nada para testar. A instância gratuita pode levar cerca de um minuto ou mais para iniciar após um período sem acessos.
+
+## Executar no seu computador
 
 No Windows, extraia o ZIP e dê dois cliques em **INICIAR.bat**. O inicializador cria um ambiente virtual, instala as dependências e abre o aplicativo no navegador. A primeira execução requer internet para instalar bibliotecas. Depois, a análise funciona com os dados locais, sem chave de API nem serviço de IA pago.
 
@@ -28,7 +34,13 @@ python -m venv .venv
 # .venv/bin/python app.py --open
 ```
 
-O servidor escuta apenas neste computador, na porta 8765. Se ela estiver ocupada, execute `python app.py --port 8766 --open`. O projeto entregue é local; não depende de hospedagem pública.
+Na execução local, o servidor escuta apenas neste computador, na porta 8765. Se ela estiver ocupada, execute `python app.py --port 8766 --open`.
+
+## Publicação no Render
+
+O arquivo `render.yaml` define um Web Service gratuito com Python 3.12.14, instalação por `pip install -r requirements.txt`, inicialização por `python app.py` e verificação de saúde em `/health`. O servidor usa a porta `PORT` fornecida pelo Render e `RADAR_HOST=0.0.0.0` para receber os acessos públicos. Alterações enviadas à branch `main` iniciam uma nova publicação automaticamente.
+
+A amostra de vagas acompanha o repositório. Os modelos exploratórios são preparados na inicialização. O perfil digitado é enviado ao backend do aplicativo para o cálculo, sem armazenamento em arquivos ou banco de dados e sem envio a APIs de IA externas. A atualização da base continua manual.
 
 ## O que experimentar
 
